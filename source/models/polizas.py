@@ -1,23 +1,29 @@
 from datetime import datetime
 
-
 class Poliza:
-    num_poliza: int
-    fecha_inicial: datetime = datetime.now()
-    fecha_final: datetime
-    costo: float
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float):
+        self.num_poliza = num_poliza
+        self.fecha_inicial = datetime.now()
+        self.fecha_final = fecha_final
+        self.costo = costo
 
 
 class Vehicular(Poliza):
-    marca: str
-    modelo: str
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, marca: str, modelo: str):
+        super().__init__(num_poliza, fecha_final, costo)
+        self.marca = marca
+        self.modelo = modelo
 
 
 class Inmueble(Poliza):
-    direccion: str
-    area: float
-
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, direccion: str, area: float):
+        super().__init__(num_poliza, fecha_final, costo)
+        self.direccion = direccion
+        self.area = area
+    
 
 class Adicional(Poliza):
-    titulo: str
-    descripcion: str
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, titulo: str, descripcion: str):
+        super().__init__(num_poliza, fecha_final, costo)
+        self.titulo = titulo
+        self.descripcion = descripcion
