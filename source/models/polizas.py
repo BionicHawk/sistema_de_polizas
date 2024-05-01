@@ -3,17 +3,21 @@ from .registro import Registro
 
 
 class Poliza:
-    num_poliza: int
-    fecha_inicial: datetime = datetime.now()
-    fecha_final: datetime
-    costo: float
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float):
+        self.num_poliza = num_poliza
+        self.fecha_inicial = datetime.now()
+        self.fecha_final = fecha_final
+        self.costo = costo
 
 
 class Vehicular(Poliza):
-    marca: str
-    modelo: str
-    titular: str
-    registros: list[Registro]
+    
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, marca : str, modelo: str, titular:str, registros: list[Registro]):
+        super().__init__(num_poliza, fecha_final, datetime, costo)
+        self.marca = marca
+        self.modelo=modelo
+        self.titular = titular
+        self.registros = registros
 
     def intentar_cubrir_daños_accidentes(self, razon: str, dias_de_vencimiento: int, monto_a_regresar: float = 0.0) -> bool:
         if dias_de_vencimiento < 1 or monto_a_regresar == 0.0 or len(razon) == 0:
@@ -32,12 +36,19 @@ class Vehicular(Poliza):
 
 
 class Inmueble(Poliza):
-    direccion: str
-    area: float
-    titular: str
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, direccion:str , area:float, titular:str):
+        super().__init__(num_poliza, fecha_final, datetime, costo)
+        self.direccion = direccion
+        self.area = area
+        self.titular = titular
+        
+    def calcular_poliza_inmueble():
+        return
 
 
 class Adicional(Poliza):
-    titulo: str
-    descripcion: str
-    titular: str
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float , titulo : str , descripcion: str, titular : str):
+        super().__init__(num_poliza, fecha_final, datetime, costo)
+        self.titulo = titulo
+        self.descripcion = descripcion
+        self.titular = titular
