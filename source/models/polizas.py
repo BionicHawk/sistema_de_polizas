@@ -9,12 +9,15 @@ class Poliza:
 
 
 class Vehicular(Poliza):
-    pass
+    marca: str
+    modelo: str
 
 
 class Inmueble(Poliza):
-    pass
+    direccion: str
+    area: float
 
 
 class Adicional(Poliza):
-    pass
+    titulo: str
+    descripcion: str
