@@ -36,9 +36,6 @@ class Vehicular(Poliza):
 
 
 class Inmueble(Poliza):
-    direccion: str
-    area: float
-    titular: str
     def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, direccion:str , area:float, titular:str):
         super().__init__(num_poliza, fecha_final, datetime, costo)
         self.direccion = direccion
@@ -50,9 +47,6 @@ class Inmueble(Poliza):
 
 
 class Adicional(Poliza):
-    titulo: str
-    descripcion: str
-    titular: str
     def __init__(self, num_poliza: int, fecha_final: datetime, costo: float , titulo : str , descripcion: str, titular : str):
         super().__init__(num_poliza, fecha_final, datetime, costo)
         self.titulo = titulo
