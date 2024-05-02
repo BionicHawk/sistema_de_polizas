@@ -18,7 +18,7 @@ def test_calculo_costo_inmueble(inmueble_de_prueba):
 
 def test_generar_informe_inspeccion_inmueble(inmueble_de_prueba):
     informe = inmueble_de_prueba.generar_informe_inspeccion()
-    assert f'El valor de la póliza 123456 para el inmueble Calle Principal 123 a nombre de Juan Perez tendrá un costo de ${inmueble_de_prueba.calcular_costo_poliza_inmueble()}' in informe
+    assert f'El valor de la poliza 123456 para el inmueble Calle Principal 123 a nombre de Juan Perez tendra un costo de ${inmueble_de_prueba.calcular_costo_poliza_inmueble()}' in informe
 
 @pytest.fixture
 def adicional_de_prueba():
