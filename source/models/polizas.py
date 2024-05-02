@@ -62,6 +62,7 @@ class Adicional(Poliza):
         self.titulo = titulo
         self.descripcion = descripcion
         self.titular = titular
+        self.descuento_aplicado = False
 
     def intentar_realizar_descuento(self) -> bool:
         antiguedad_años = 5
@@ -73,7 +74,12 @@ class Adicional(Poliza):
 
         expiro_poliza = (dia_de_hoy - self.fecha_final).seconds >= 0
 
-        return paso_la_antiguedad and not expiro_poliza
+        if paso_la_antiguedad and not expiro_poliza and not self.descuento_aplicado:
+            self.descuento_aplicado = True
+            self.costo *= 0.8
+            return True
+
+        return False
 
     def generar_informe_inspeccion(self) -> str:
         return f'El valor de la poliza {self.num_poliza} para el inmueble {self.direccion} a nombre de {self.titular} tendra el costo ${self.calcular_costo_poliza()}'
