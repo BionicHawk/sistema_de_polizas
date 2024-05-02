@@ -144,6 +144,7 @@ def test_poliza_expirada_2():
 
     assert poliza.esta_la_poliza_expirada() == False
 
+# Inmuebles
 
 @pytest.fixture
 def inmueble_de_prueba():
@@ -157,7 +158,7 @@ def inmueble_de_prueba():
     )
 
 @pytest.fixture
-def adicional_de_prueba():
+def adicional_de_prueba() -> Adicional:
     return Adicional(
         num_poliza=789012,
         fecha_final=datetime.now() + timedelta(days=365),
@@ -174,8 +175,32 @@ def test_generar_informe_inspeccion_inmueble(inmueble_de_prueba):
     informe = inmueble_de_prueba.generar_informe_inspeccion()
     assert f'El valor de la poliza 123456 para el inmueble Calle Principal 123 a nombre de Juan Perez tendra un costo de ${inmueble_de_prueba.calcular_costo_poliza_inmueble()}' in informe
 
-def test_calculo_costo_adicional(adicional_de_prueba):
-    assert adicional_de_prueba.calcular_costo_poliza() == 500 * 0.3
+# Adicionales
+
+def test_descuento_1():
+    poliza = Adicional(
+        num_poliza=789012,
+        fecha_final=datetime.now() + timedelta(days=365),
+        costo=500,
+        titulo='Cobertura adicional',
+        descripcion='Cobertura extra para daños accidentales',
+        titular='María López'
+    )
+    assert poliza.intentar_realizar_descuento() == False
+
+def test_descuento_2():
+    poliza = Adicional(
+        num_poliza=789012,
+        fecha_final=datetime.now() + timedelta(days=365),
+        costo=500,
+        titulo='Cobertura adicional',
+        descripcion='Cobertura extra para daños accidentales',
+        titular='María López'
+    )
+    poliza.fecha_inicial = adicional_de_prueba.fecha_inicial = datetime(2018, 1, 1)
+    assert poliza.intentar_realizar_descuento() == True
+    
+
 
 def test_generar_informe_inspeccion_adicional(adicional_de_prueba):
     informe = adicional_de_prueba.generar_informe_inspeccion()
