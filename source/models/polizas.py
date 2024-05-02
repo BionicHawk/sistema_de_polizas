@@ -66,8 +66,7 @@ class Adicional(Poliza):
     def intentar_realizar_descuento(self) -> bool:
         antiguedad_años = 5
         total_antiguedad_dias = antiguedad_años * 365
-        fecha_pasada_antiguedad = self.fecha_inicial + \
-            timedelta(days=total_antiguedad_dias)
+        fecha_pasada_antiguedad = self.fecha_inicial + timedelta(days=total_antiguedad_dias)
         dia_de_hoy = datetime.now()
         paso_la_antiguedad = (
             dia_de_hoy - fecha_pasada_antiguedad).seconds >= 0
