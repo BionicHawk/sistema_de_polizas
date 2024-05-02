@@ -97,7 +97,6 @@ def obtener_area() -> float:
 
 
 def agregar_poliza_vehicular():
-    poliza = Vehicular()
     print('[==== Ingrese los detalles de la póliza vehícular ====\n]')
     titular = input('\tIngrese el nombre del titular: ')
     costo = obtener_precio()
@@ -105,18 +104,18 @@ def agregar_poliza_vehicular():
     marca = input('\tIngrese la marca del vehículo: ')
     modelo = input('\tIngrese el modelo del vehículo: ')
 
-    poliza.costo = costo
-    poliza.marca = marca
-    poliza.modelo = modelo
-    poliza.fecha_final = fecha_vencimiento
-    poliza.titular = titular
-    poliza.num_poliza = len(polizas) + 1
+    poliza = Vehicular(
+        titular=titular,
+        costo=costo,
+        fecha_final=fecha_vencimiento,
+        marca=marca,
+        modelo=modelo,
+        num_poliza=len(polizas) + 1)
 
     polizas.append(poliza)
 
 
 def agregar_poliza_inmueble():
-    poliza = Inmueble()
     print('[==== Ingrese los detalles del inmueble ====]\n')
     titular = input('\tIngrese el nombre del titular: ')
     costo = obtener_precio()
@@ -124,18 +123,18 @@ def agregar_poliza_inmueble():
     fecha_vencimiento = obtener_vencimiento
     direccion = input('\tIngrese la dirección del inmbueble: ')
 
-    poliza.titular = titular
-    poliza.costo = costo
-    poliza.area = area
-    poliza.fecha_final = fecha_vencimiento
-    poliza.direccion = direccion
-    poliza.num_poliza = len(polizas) + 1
+    poliza = Inmueble(
+        titular=titular,
+        costo=costo,
+        area=area,
+        fecha_final=fecha_vencimiento,
+        num_poliza=len(polizas) + 1
+    )
 
     polizas.append(poliza)
 
 
 def agregar_poliza_adicional():
-    poliza = Adicional()
     print('[==== Ingrese los detalles de esta póliza ====]')
     titular = input('\tIngrese el nombre del titular: ')
     titulo = input('\tIngrese el título de esta póliza: ')
@@ -143,12 +142,14 @@ def agregar_poliza_adicional():
     costo = obtener_precio()
     fecha_vencimiento = obtener_vencimiento()
 
-    poliza.titular = titular
-    poliza.costo = costo
-    poliza.titulo = titulo
-    poliza.descripcion = descripcion
-    poliza.fecha_final = fecha_vencimiento
-    poliza.num_poliza = len(polizas) + 1
+    poliza = Adicional(
+        titular=titular,
+        titulo=titulo,
+        descripcion=descripcion,
+        costo=costo,
+        fecha_final=fecha_vencimiento,
+        num_poliza=len(polizas) + 1
+    )
 
     polizas.append(poliza)
 
