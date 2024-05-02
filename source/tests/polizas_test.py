@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime, timedelta
-from ..models.polizas import Adicional, Inmueble
+from ..models.polizas import Adicional, Inmueble, Vehicular
 
 @pytest.fixture
 def inmueble_de_prueba():
@@ -12,6 +12,23 @@ def inmueble_de_prueba():
         area=50,
         titular='Juan Perez'
     )
+
+
+def vehiculo_de_prueba():
+    today = datetime(2024, 4, 27)
+
+    return Vehicular(
+        titular='jvrw3nv;rnwv',
+        num_poliza=3156980137,
+        fecha_final=today + timedelta(days=2),
+        costo=24502,
+        marca='Ford',
+        modelo='Mustang'
+    )
+
+def test_expiracion():
+    vehiculo = vehiculo_de_prueba()
+    assert vehiculo.esta_la_poliza_expirada() == True
 
 def test_calculo_costo_inmueble(inmueble_de_prueba):
     assert inmueble_de_prueba.calcular_costo_poliza_inmueble() == 1000 * 50 * 0.3
