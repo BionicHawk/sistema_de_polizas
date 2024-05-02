@@ -10,6 +10,7 @@ def test_cubrir_daños_1():
     """
 
     poliza = Vehicular(
+        num_poliza=25235,
         titular='Angel de Jesus Manzo Rosas',
         costo=1320,
         fecha_final=datetime.now() + timedelta(days= 5 * 30),
@@ -30,6 +31,7 @@ def test_cubrir_daños_2():
     """
 
     poliza = Vehicular(
+        num_poliza=425,
         titular='Angel de Jesus Manzo Rosas',
         costo=1320,
         fecha_final=datetime.now() + timedelta(days= 5 * 30),
@@ -50,6 +52,7 @@ def test_cubrir_daños_3():
     """
 
     poliza = Vehicular(
+        num_poliza=3216,
         titular='Angel de Jesus Manzo Rosas',
         costo=1320,
         fecha_final=datetime.now() + timedelta(days= 5 * 30),
@@ -70,6 +73,7 @@ def test_cubrir_daños_4():
     """
 
     poliza = Vehicular(
+        num_poliza=3526,
         titular='Angel de Jesus Manzo Rosas',
         costo=1320,
         fecha_final=datetime.now() + timedelta(days= 5 * 30),
@@ -90,6 +94,7 @@ def test_cubrir_daños_5():
     """
 
     poliza = Vehicular(
+        num_poliza=3256,
         titular='Angel de Jesus Manzo Rosas',
         costo=1320,
         fecha_final=datetime.now() + timedelta(days= 5 * 30),
@@ -102,6 +107,43 @@ def test_cubrir_daños_5():
         dias_de_vencimiento=30,
         monto_a_regresar=450
     ) == False
+    
+def test_poliza_expirada_1():
+    """
+    En está prueba se esta verificando si la fecha final de póliza
+    ha sido alcanzada, usando una fecha de hace 5 meses atrás
+    como fecha de vencimiento
+    """
+    
+    poliza = Vehicular(
+        num_poliza=3256,
+        titular='Angel de Jesus Manzo Rosas',
+        costo=1320,
+        fecha_final=datetime.now() - timedelta(days= 5 * 30),
+        marca='Tesla',
+        modelo='Model Y'
+    )
+
+    assert poliza.esta_la_poliza_expirada() == True
+    
+def test_poliza_expirada_2():
+    """
+    En está prueba se esta verificando si la fecha final de póliza
+    ha sido alcanzada usando una fecha de 5 meses en el futuro
+    como vencimiento
+    """
+    
+    poliza = Vehicular(
+        num_poliza=3256,
+        titular='Angel de Jesus Manzo Rosas',
+        costo=1320,
+        fecha_final=datetime.now() + timedelta(days= 5 * 30),
+        marca='Tesla',
+        modelo='Model Y'
+    )
+
+    assert poliza.esta_la_poliza_expirada() == False
+
 
 @pytest.fixture
 def inmueble_de_prueba():
@@ -124,25 +166,6 @@ def adicional_de_prueba():
         descripcion='Cobertura extra para daños accidentales',
         titular='María López'
     )
-
-@pytest.fixture
-def vehiculo_de_prueba():
-    today = datetime(2024, 4, 27)
-
-    return Vehicular(
-        titular='jvrw3nv;rnwv',
-        num_poliza=3156980137,
-        fecha_final=today + timedelta(days=2),
-        costo=24502,
-        marca='Ford',
-        modelo='Mustang'
-    )
-
-def test_cubrir_accidentes(vehiculo_de_prueba):
-    assert vehiculo_de_prueba.intentar_cubrir_daños_accidentes('Porque si', 4, 300.22) == False
-
-def test_expiracion(vehiculo_de_prueba):
-    assert vehiculo_de_prueba.esta_la_poliza_expirada() == True
 
 def test_calculo_costo_inmueble(inmueble_de_prueba):
     assert inmueble_de_prueba.calcular_costo_poliza_inmueble() == 1000 * 50 * 0.3
