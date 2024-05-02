@@ -47,10 +47,13 @@ class Inmueble(Poliza):
         self.titular = titular
 
     def calcular_costo_poliza_inmueble(self) -> float:
-        return (self.costo * self.area) * 0.3
+        cost = (self.costo * self.area) * 0.3
+        if 'San Pedro' in self.direccion:
+            return cost * 10
+        return cost
 
     def generar_informe_inspeccion(self) -> str:
-        return f'El valor de la poliza {self.num_poliza} para el inmueble {self.direccion} a nombre de {self.titular} tendra el costo ${self.calcular_costo_poliza_inmueble()}'
+        return f'El valor de la poliza {self.num_poliza} para el inmueble {self.direccion} a nombre de {self.titular} tendra un costo de ${self.calcular_costo_poliza_inmueble()}'
 
 
 class Adicional(Poliza):
