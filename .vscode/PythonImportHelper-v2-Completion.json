@@ -1,0 +1,175 @@
+[
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "Inmueble",
+        "importPath": "models.polizas",
+        "description": "models.polizas",
+        "isExtraImport": true,
+        "detail": "models.polizas",
+        "documentation": {}
+    },
+    {
+        "label": "Poliza",
+        "kind": 6,
+        "importPath": "source.models.polizas",
+        "description": "source.models.polizas",
+        "peekOfCode": "class Poliza:\n    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float):\n        self.num_poliza = num_poliza\n        self.fecha_inicial = datetime.now()\n        self.fecha_final = fecha_final\n        self.costo = costo\nclass Vehicular(Poliza):\n    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, marca : str, modelo: str, titular:str, registros: list[Registro]):\n        super().__init__(num_poliza, fecha_final, costo)\n        self.marca = marca",
+        "detail": "source.models.polizas",
+        "documentation": {}
+    },
+    {
+        "label": "Vehicular",
+        "kind": 6,
+        "importPath": "source.models.polizas",
+        "description": "source.models.polizas",
+        "peekOfCode": "class Vehicular(Poliza):\n    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, marca : str, modelo: str, titular:str, registros: list[Registro]):\n        super().__init__(num_poliza, fecha_final, costo)\n        self.marca = marca\n        self.modelo=modelo\n        self.titular = titular\n        self.registros = registros\n    def intentar_cubrir_daños_accidentes(self, razon: str, dias_de_vencimiento: int, monto_a_regresar: float = 0.0) -> bool:\n        if dias_de_vencimiento < 1 or monto_a_regresar == 0.0 or len(razon) == 0:\n            return False",
+        "detail": "source.models.polizas",
+        "documentation": {}
+    },
+    {
+        "label": "Inmueble",
+        "kind": 6,
+        "importPath": "source.models.polizas",
+        "description": "source.models.polizas",
+        "peekOfCode": "class Inmueble(Poliza):\n    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, direccion:str , area:float, titular:str):\n        super().__init__(num_poliza, fecha_final, costo)\n        self.direccion = direccion\n        self.area = area\n        self.titular = titular\n    def calcular_costo_poliza_inmueble(self) -> float:\n        return (self.costo * self.area) * 0.3\n    def generar_informe_inspeccion(self) -> str:\n        return f'El valor de la poliza {self.num_poliza} para el inmueble {self.direccion} a nombre de {self.titular} tendra el costo ${self.calcular_costo_poliza_inmueble()}'",
+        "detail": "source.models.polizas",
+        "documentation": {}
+    },
+    {
+        "label": "Adicional",
+        "kind": 6,
+        "importPath": "source.models.polizas",
+        "description": "source.models.polizas",
+        "peekOfCode": "class Adicional(Poliza):\n    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float , titulo : str , descripcion: str, titular : str):\n        super().__init__(num_poliza, fecha_final, costo)\n        self.titulo = titulo\n        self.descripcion = descripcion\n        self.titular = titular\n    def calcular_costo_poliza(self) -> float:\n        return (self.costo * self.area) * 0.3\n    def generar_informe_inspeccion(self) -> str:\n        return f'El valor de la poliza {self.num_poliza} para el inmueble {self.direccion} a nombre de {self.titular} tendra el costo ${self.calcular_costo_poliza()}'",
+        "detail": "source.models.polizas",
+        "documentation": {}
+    },
+    {
+        "label": "Registro",
+        "kind": 6,
+        "importPath": "source.models.registro",
+        "description": "source.models.registro",
+        "peekOfCode": "class Registro:\n    def __init__(self, razon: str, expedicion: datetime, monto: float, vencimiento: datetime):\n        self.razon = razon\n        self.expedicion = expedicion\n        self.monto = monto\n        self.vencimiento = vencimiento",
+        "detail": "source.models.registro",
+        "documentation": {}
+    },
+    {
+        "label": "inmueble_de_prueba",
+        "kind": 2,
+        "importPath": "source.tests.polizas_test",
+        "description": "source.tests.polizas_test",
+        "peekOfCode": "def inmueble_de_prueba():\n    return Inmueble(\n        num_poliza=123456,\n        fecha_final=datetime.now() + timedelta(days=365),\n        costo=1000,\n        direccion='Calle Principal 123',\n        area=50,\n        titular='Juan Perez'\n    )\ndef test_calculo_costo_inmueble(inmueble_de_prueba):",
+        "detail": "source.tests.polizas_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_calculo_costo_inmueble",
+        "kind": 2,
+        "importPath": "source.tests.polizas_test",
+        "description": "source.tests.polizas_test",
+        "peekOfCode": "def test_calculo_costo_inmueble(inmueble_de_prueba):\n    assert inmueble_de_prueba.calcular_costo_poliza_inmueble() == 1000 * 50 * 0.3\ndef test_generar_informe_inspeccion_inmueble(inmueble_de_prueba):\n    informe = inmueble_de_prueba.generar_informe_inspeccion()\n    assert f'El valor de la póliza 123456 para el inmueble Calle Principal 123 a nombre de Juan Perez tendrá un costo de ${inmueble_de_prueba.calcular_costo_poliza_inmueble()}' in informe\n@pytest.fixture\ndef adicional_de_prueba():\n    return Adicional(\n        num_poliza=789012,\n        fecha_final=datetime.now() + timedelta(days=365),",
+        "detail": "source.tests.polizas_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_generar_informe_inspeccion_inmueble",
+        "kind": 2,
+        "importPath": "source.tests.polizas_test",
+        "description": "source.tests.polizas_test",
+        "peekOfCode": "def test_generar_informe_inspeccion_inmueble(inmueble_de_prueba):\n    informe = inmueble_de_prueba.generar_informe_inspeccion()\n    assert f'El valor de la póliza 123456 para el inmueble Calle Principal 123 a nombre de Juan Perez tendrá un costo de ${inmueble_de_prueba.calcular_costo_poliza_inmueble()}' in informe\n@pytest.fixture\ndef adicional_de_prueba():\n    return Adicional(\n        num_poliza=789012,\n        fecha_final=datetime.now() + timedelta(days=365),\n        costo=500,\n        titulo='Cobertura adicional',",
+        "detail": "source.tests.polizas_test",
+        "documentation": {}
+    },
+    {
+        "label": "adicional_de_prueba",
+        "kind": 2,
+        "importPath": "source.tests.polizas_test",
+        "description": "source.tests.polizas_test",
+        "peekOfCode": "def adicional_de_prueba():\n    return Adicional(\n        num_poliza=789012,\n        fecha_final=datetime.now() + timedelta(days=365),\n        costo=500,\n        titulo='Cobertura adicional',\n        descripcion='Cobertura extra para daños accidentales',\n        titular='María López'\n    )\ndef test_calculo_costo_adicional(adicional_de_prueba):",
+        "detail": "source.tests.polizas_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_calculo_costo_adicional",
+        "kind": 2,
+        "importPath": "source.tests.polizas_test",
+        "description": "source.tests.polizas_test",
+        "peekOfCode": "def test_calculo_costo_adicional(adicional_de_prueba):\n    # Asumiendo que la clase Adicional tiene un atributo `area`\n    assert adicional_de_prueba.calcular_costo_poliza() == 500 * 0.3\ndef test_generar_informe_inspeccion_adicional(adicional_de_prueba):\n    informe = adicional_de_prueba.generar_informe_inspeccion()\n    assert f'El valor de la póliza 789012 para el inmueble {adicional_de_prueba.direccion} a nombre de {adicional_de_prueba.titular} tendrá el costo ${adicional_de_prueba.calcular_costo_poliza()}' in informe",
+        "detail": "source.tests.polizas_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_generar_informe_inspeccion_adicional",
+        "kind": 2,
+        "importPath": "source.tests.polizas_test",
+        "description": "source.tests.polizas_test",
+        "peekOfCode": "def test_generar_informe_inspeccion_adicional(adicional_de_prueba):\n    informe = adicional_de_prueba.generar_informe_inspeccion()\n    assert f'El valor de la póliza 789012 para el inmueble {adicional_de_prueba.direccion} a nombre de {adicional_de_prueba.titular} tendrá el costo ${adicional_de_prueba.calcular_costo_poliza()}' in informe",
+        "detail": "source.tests.polizas_test",
+        "documentation": {}
+    },
+    {
+        "label": "inmueble",
+        "kind": 5,
+        "importPath": "source.main",
+        "description": "source.main",
+        "peekOfCode": "inmueble = Inmueble(\n    costo=5000,\n    direccion='Calle del sexo',\n    num_poliza=84848,\n    fecha_final= datetime.now(),\n    area=500,\n    titular='Dante de Lordran'\n)\nprint(inmueble.generar_informe_inspeccion())",
+        "detail": "source.main",
+        "documentation": {}
+    }
+]
