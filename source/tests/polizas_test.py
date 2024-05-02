@@ -2,6 +2,107 @@ import pytest
 from datetime import datetime, timedelta
 from ..models.polizas import Adicional, Inmueble, Vehicular
 
+# Pruebas de Vehicular
+def test_cubrir_daños_1():
+    """
+    En este caso se evalua que se pueda hacer válida 
+    la póliza con datos correctos (Debería de ser válido)
+    """
+
+    poliza = Vehicular(
+        titular='Angel de Jesus Manzo Rosas',
+        costo=1320,
+        fecha_final=datetime.now() + timedelta(days= 5 * 30),
+        marca='Tesla',
+        modelo='Model Y'
+    )
+
+    assert poliza.intentar_cubrir_daños_accidentes(
+        razon='Sufrió daño en el parachoques trasero por choque',
+        dias_de_vencimiento=15,
+        monto_a_regresar=4000
+    ) == True
+
+def test_cubrir_daños_2():
+    """
+    En este caso se evalua que se pueda hacer válida 
+    la póliza con datos incorrectos (Debería de ser Falso)
+    """
+
+    poliza = Vehicular(
+        titular='Angel de Jesus Manzo Rosas',
+        costo=1320,
+        fecha_final=datetime.now() + timedelta(days= 5 * 30),
+        marca='Tesla',
+        modelo='Model Y'
+    )
+
+    assert poliza.intentar_cubrir_daños_accidentes(
+        razon='',
+        dias_de_vencimiento=0,
+        monto_a_regresar=-450
+    ) == True
+
+def test_cubrir_daños_3():
+    """
+    En este caso se evalua que se pueda hacer válida 
+    la póliza con menos de 1 día de vencimiento (Debería de ser Falso)
+    """
+
+    poliza = Vehicular(
+        titular='Angel de Jesus Manzo Rosas',
+        costo=1320,
+        fecha_final=datetime.now() + timedelta(days= 5 * 30),
+        marca='Tesla',
+        modelo='Model Y'
+    )
+
+    assert poliza.intentar_cubrir_daños_accidentes(
+        razon='Sufrió daño en el parachoques trasero por choque',
+        dias_de_vencimiento=0,
+        monto_a_regresar=3000
+    ) == True
+
+def test_cubrir_daños_4():
+    """
+    En este caso se evalua que se pueda hacer válida 
+    la póliza con un costo monto a regresar negativo (Debería de ser Falso)
+    """
+
+    poliza = Vehicular(
+        titular='Angel de Jesus Manzo Rosas',
+        costo=1320,
+        fecha_final=datetime.now() + timedelta(days= 5 * 30),
+        marca='Tesla',
+        modelo='Model Y'
+    )
+
+    assert poliza.intentar_cubrir_daños_accidentes(
+        razon='',
+        dias_de_vencimiento=20,
+        monto_a_regresar=-450
+    ) == False
+
+def test_cubrir_daños_5():
+    """
+    En este caso se evalua que se pueda hacer válida 
+    la póliza sin pasarle la razón (Debería de ser Falso)
+    """
+
+    poliza = Vehicular(
+        titular='Angel de Jesus Manzo Rosas',
+        costo=1320,
+        fecha_final=datetime.now() + timedelta(days= 5 * 30),
+        marca='Tesla',
+        modelo='Model Y'
+    )
+
+    assert poliza.intentar_cubrir_daños_accidentes(
+        razon='',
+        dias_de_vencimiento=30,
+        monto_a_regresar=450
+    ) == False
+
 @pytest.fixture
 def inmueble_de_prueba():
     return Inmueble(
