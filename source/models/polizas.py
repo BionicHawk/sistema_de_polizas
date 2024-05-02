@@ -11,12 +11,12 @@ class Poliza:
 
 class Vehicular(Poliza):
     
-    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, marca : str, modelo: str, titular:str, registros: list[Registro]):
+    def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, marca : str, modelo: str, titular:str):
         super().__init__(num_poliza, fecha_final, costo)
         self.marca = marca
         self.modelo=modelo
         self.titular = titular
-        self.registros = registros
+        self.registros: list[Registro] = []
 
     def intentar_cubrir_daños_accidentes(self, razon: str, dias_de_vencimiento: int, monto_a_regresar: float = 0.0) -> bool:
         if dias_de_vencimiento < 1 or monto_a_regresar == 0.0 or len(razon) == 0:
