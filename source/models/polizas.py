@@ -60,8 +60,18 @@ class Adicional(Poliza):
         self.descripcion = descripcion
         self.titular = titular
 
-    def calcular_costo_poliza(self) -> float:
-        return (self.costo * self.area) * 0.3
+    def intentar_realizar_descuento(self) -> bool:
+        antiguedad_años = 5
+        total_antiguedad_dias = antiguedad_años * 365
+        fecha_pasada_antiguedad = self.fecha_inicial + \
+            timedelta(days=total_antiguedad_dias)
+        dia_de_hoy = datetime.now()
+        paso_la_antiguedad = (
+            dia_de_hoy - fecha_pasada_antiguedad).seconds >= 0
+
+        expiro_poliza = (dia_de_hoy - self.fecha_final).seconds >= 0
+
+        return paso_la_antiguedad and not expiro_poliza
 
     def generar_informe_inspeccion(self) -> str:
         return f'El valor de la poliza {self.num_poliza} para el inmueble {self.direccion} a nombre de {self.titular} tendra el costo ${self.calcular_costo_poliza()}'
