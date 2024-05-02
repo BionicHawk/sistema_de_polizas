@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from .registro import Registro
 
-
 class Poliza:
     def __init__(self, num_poliza: int, fecha_final: datetime, costo: float):
         self.num_poliza = num_poliza
@@ -13,7 +12,7 @@ class Poliza:
 class Vehicular(Poliza):
     
     def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, marca : str, modelo: str, titular:str, registros: list[Registro]):
-        super().__init__(num_poliza, fecha_final, datetime, costo)
+        super().__init__(num_poliza, fecha_final, costo)
         self.marca = marca
         self.modelo=modelo
         self.titular = titular
@@ -37,18 +36,26 @@ class Vehicular(Poliza):
 
 class Inmueble(Poliza):
     def __init__(self, num_poliza: int, fecha_final: datetime, costo: float, direccion:str , area:float, titular:str):
-        super().__init__(num_poliza, fecha_final, datetime, costo)
+        super().__init__(num_poliza, fecha_final, costo)
         self.direccion = direccion
         self.area = area
         self.titular = titular
-        
-    def calcular_poliza_inmueble():
-        return
 
+    def calcular_costo_poliza_inmueble(self) -> float:
+        return (self.costo * self.area) * 0.3
+
+    def generar_informe_inspeccion(self) -> str:
+        return f'El valor de la poliza {self.num_poliza} para el inmueble {self.direccion} a nombre de {self.titular} tendra el costo ${self.calcular_costo_poliza_inmueble()}'
 
 class Adicional(Poliza):
     def __init__(self, num_poliza: int, fecha_final: datetime, costo: float , titulo : str , descripcion: str, titular : str):
-        super().__init__(num_poliza, fecha_final, datetime, costo)
+        super().__init__(num_poliza, fecha_final, costo)
         self.titulo = titulo
         self.descripcion = descripcion
         self.titular = titular
+
+    def calcular_costo_poliza(self) -> float:
+        return (self.costo * self.area) * 0.3
+
+    def generar_informe_inspeccion(self) -> str:
+        return f'El valor de la poliza {self.num_poliza} para el inmueble {self.direccion} a nombre de {self.titular} tendra el costo ${self.calcular_costo_poliza()}'
